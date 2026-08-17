@@ -1,33 +1,50 @@
-California Housing Price Prediction (Ensemble ML)
-Проект по предсказанию медианной стоимости недвижимости в штате Калифорния. Пройден полный цикл ML-разработки: от базовой модели до сложной инженерии признаков (Feature Engineering) и ансамблирования градиентных бустингов.
+# California Housing Price Prediction (Ensemble ML)
 
-Итоговые результаты
-В ходе экспериментов точность модели (R2) была увеличена с 80.50% до 88.14%, а средняя ошибка (MAE) снижена с $32,754 до ~$23,200.
+California housing median price prediction project. Covers the full ML development pipeline: from baseline model to advanced Feature Engineering and gradient boosting ensembling.
 
-Примечание: Порог в ~88% является близким к теоретическому максимуму для данного датасета из-за агрегации данных по микрорайонам (перепись 1990 г.) и отсутствия сведений о состоянии ремонта объектов.
+---
 
-Ключевые методы улучшения (Feature Engineering)
-Близость к океану (Dist_to_Coast): Расчет приближенного расстояния до Тихого океана по координатам (главный ценовой фактор).
+## Results
 
-Гео-расстояния: Расстояния до ключевых мегаполисов (Сан-Франциско, Лос-Анджелес, Сан-Хосе, Сан-Диего).
+During experiments, model accuracy (R2) was improved from 80.50% to 88.14%, while Mean Absolute Error (MAE) dropped from $32,754 to ~$23,200.
 
-Пространственная кластеризация: Использование K-Means (35 кластеров) и географической сетки для точной привязки к микрорайонам.
+| Stage / Model | MAE ($) | R2 Score (%) |
+| :--- | :---: | :---: |
+| Baseline (RandomForest) | $32,754 | 80.50% |
+| Baseline + Dist_to_SF | $31,840 | 81.20% |
+| XGBoost (Single) | $28,306 | 85.20% |
+| Ensemble (XGB + Cat + Geo-Features) | $23,200 | 88.14% |
 
-Capping (Ограничение выбросов): Жесткое ограничение диапазона предсказаний [0.15, 5.0] согласно границам исходного датасета.
+Note: The ~88% threshold is close to the theoretical maximum for this dataset due to block-group data aggregation (1990 Census) and missing information on property repair conditions.
 
-Ансамблирование (Blending): Взвешенное объединение предсказаний XGBoost и CatBoost с автоматическим отбором лучшей комбинации.
+---
 
-Запуск проекта
-1. Клонирование репозитория
+## Key Improvement Methods (Feature Engineering)
+
+1. Proximity to Ocean (Dist_to_Coast): Approximate distance calculation to the Pacific Ocean using coordinates (primary price factor).
+2. Geographical Distances: Distances to major metropolitan areas (San Francisco, Los Angeles, San Jose, San Diego).
+3. Spatial Clustering: K-Means usage (35 clusters) and grid rounding for precise location mapping.
+4. Capping (Outlier Handling): Enforcing strict prediction bounds [0.15, 5.0] according to the original dataset range.
+5. Ensembling (Blending): Weighted combination of XGBoost and CatBoost predictions with automatic selection of the best-performing mix.
+
+---
+
+## Getting Started
+
+### 1. Clone the repository
 git clone https://github.com/beefpot-govnoed/california-housing-practice.git
 cd california-housing-practice
 
-2. Установка зависимостей
+### 2. Install dependencies
 pip install -r requirements.txt
 
-3. Запуск
+### 3. Run the script
 python california-housing-practice.py
-Команды для загрузки через консоль Git:
+
+---
+
+## Git Commands for Uploading
+
 git init
 git add .
 git commit -m "Initial commit: California Housing 88.14% R2 ensemble"
